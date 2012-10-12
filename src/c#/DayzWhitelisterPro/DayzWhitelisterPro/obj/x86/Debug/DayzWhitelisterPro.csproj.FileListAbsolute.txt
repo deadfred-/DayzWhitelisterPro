@@ -1,0 +1,15 @@
+C:\Users\Administrator\AppData\Local\Temporary Projects\DayzWhitelisterPro\bin\Debug\DayzWhitelisterPro.exe
+C:\Users\Administrator\AppData\Local\Temporary Projects\DayzWhitelisterPro\bin\Debug\DayzWhitelisterPro.pdb
+C:\Users\Administrator\AppData\Local\Temporary Projects\DayzWhitelisterPro\bin\Debug\BattleNET.dll
+C:\Users\Administrator\AppData\Local\Temporary Projects\DayzWhitelisterPro\bin\Debug\BattleNET.pdb
+C:\Users\Administrator\AppData\Local\Temporary Projects\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\AppData\Local\Temporary Projects\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
+C:\Users\Administrator\AppData\Local\Temporary Projects\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\bin\Debug\DayzWhitelisterPro.exe
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\bin\Debug\DayzWhitelisterPro.pdb
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\bin\Debug\BattleNET.pdb
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
+C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb

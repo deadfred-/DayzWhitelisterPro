@@ -1,0 +1,7 @@
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\bin\Release\DayzWhitelisterPro.exe
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\bin\Release\DayzWhitelisterPro.pdb
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\bin\Release\BattleNET.dll
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\bin\Release\BattleNET.pdb
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Release\DayzWhitelisterPro.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Release\DayzWhitelisterPro.exe
+C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Release\DayzWhitelisterPro.pdb
