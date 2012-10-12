@@ -1,3 +1,8 @@
+Welcome to the DayZ Whitelister Pro App by Hambeast aka deadfred666.
+
+You can use this code however you like for the current time.  I just ask if you use it put a link here somewhere in your readme.  Also if you want to buy me a beer, paypal donations are accepted at john@teqsun.com
+
+
 To install, run all of the scripts in the SQL directory with your dayz user starting with "setupdb.sql"
 then run the stored proc sql files to insert them into your db.
 
