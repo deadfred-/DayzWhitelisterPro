@@ -1,6 +1,8 @@
 Welcome to the DayZ Whitelister Pro App by Hambeast aka deadfred666.
 
-You can use this code however you like for the current time.  I just ask if you use it put a link here somewhere in your readme.  Also if you want to buy me a beer, paypal donations are accepted at john@teqsun.com
+You can use this code however you like for the current time.  I just ask if you use it put a link here somewhere in your readme.  
+
+Also if you like this program and want to buy me a beer, paypal donations are accepted at john@teqsun.com
 
 
 To install, run all of the scripts in the SQL directory with your dayz user starting with "setupdb.sql"
@@ -11,3 +13,5 @@ configure the db.php in src/php/whitelistadmin/include
 configure the program.cs database info in C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\
 
 build the C# and run, your database should now be populated
+
+to install the admin control panel, you will need to copy your src/php/whitelistadmin folder to somewhere in your webroot.  Note this app offers no security other than parameterized queries, so you must protect this location yourself.  I suggest using .htdocs but if you want to whip up a little login script that will work too.  Just remember not to expose this to the public.
