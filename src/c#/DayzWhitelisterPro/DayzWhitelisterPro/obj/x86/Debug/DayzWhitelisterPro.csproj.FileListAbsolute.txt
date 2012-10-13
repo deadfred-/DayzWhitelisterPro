@@ -13,3 +13,5 @@ C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\
 C:\Users\Administrator\Documents\Visual Studio 2010\Projects\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
 C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb
+C:\Users\john\Documents\GitHub\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
+C:\Users\john\Documents\GitHub\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb

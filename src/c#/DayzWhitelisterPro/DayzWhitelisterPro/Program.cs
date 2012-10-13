@@ -8,18 +8,26 @@ using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace DayzWhitelisterPro
 {
     class Program
     {
-        public static Options opt = new Options();
+        public static BEOptions beOptions = new BEOptions();
+        static DB dbase = new DB();
 
-        static BattlEyeLoginCredentials logcred = new BattlEyeLoginCredentials { Host=opt.BEHost, Password=opt.BEPass, Port=Convert.ToInt32(opt.BEPort) };
+        static BattlEyeLoginCredentials logcred = new BattlEyeLoginCredentials { Host=beOptions.BEHost, Password=beOptions.BEPass, Port=Convert.ToInt32(beOptions.BEPort) };
         static IBattleNET b = new BattlEyeClient(logcred);
+        
+        static string configFileName = "config.xml";
 
         static void Main(string[] args)
         {
+            // load XML data
+            LoadXMLSettings();
+
+            // init BattlEye
             b.MessageReceivedEvent += DumpMessage;
             b.DisconnectEvent += Disconnected;
             b.ReconnectOnPacketLoss(true);
@@ -111,7 +119,7 @@ namespace DayzWhitelisterPro
         private static bool VerifyWhiteList(DayzClient client)
         {
             bool returnVal = false;
-            DB dbase = new DB();
+            
             string connStr = string.Format("server={0};user={1};database={2};port={3};password={4};", dbase.Host, dbase.User, dbase.Database, dbase.Port, dbase.Pass);
 
             MySqlConnection conn = new MySqlConnection(connStr);
@@ -145,9 +153,95 @@ namespace DayzWhitelisterPro
             return returnVal;
         }
 
+        private static void LoadXMLSettings()
+        {
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(configFileName);
+                foreach (XmlNode node in xmlDoc)
+                {
+                    if (node.Name == "config")
+                    {
+                        foreach (XmlNode configNode in node)
+                        {
+                            if (configNode.Name == "section")
+                            {
+                                if (configNode.Attributes.Count == 1)
+                                {
+                                    switch (configNode.Attributes[0].Value)
+                                    {
+                                        case "DB":
+                                            foreach (XmlNode dbNode in configNode)
+                                            {
+                                                if (dbNode.Attributes.Count == 1)
+                                                {
+                                                    switch (dbNode.Attributes[0].Value)
+                                                    {
+                                                        case "Host":
+                                                            dbase.Host = dbNode.InnerText;
+                                                            break;
+                                                        case "Port":
+                                                            dbase.Port = dbNode.InnerText;
+                                                            break;
+                                                        case "User":
+                                                            dbase.User = dbNode.InnerText;
+                                                            break;
+                                                        case "Pass":
+                                                            dbase.Pass = dbNode.InnerText;
+                                                            break;
+                                                        case "DB":
+                                                            dbase.Database = dbNode.InnerText;
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                            break;
+
+                                        case "RCON":
+                                            foreach (XmlNode rconNode in configNode)
+                                            {
+                                                if (configNode.Attributes.Count == 1)
+                                                {
+                                                    switch (configNode.Attributes[0].Value)
+                                                    {
+                                                        case "Host":
+                                                            beOptions.BEHost = configNode.InnerText;
+                                                            break;
+                                                        case "Port":
+                                                            beOptions.BEPort = configNode.InnerText;
+                                                            break;
+                                                        case "Pass":
+                                                            beOptions.BEPass = configNode.InnerText;
+                                                            break;
+                                                        case "Enabled":
+                                                            beOptions.WhiteListEnabled = Convert.ToBoolean(configNode.InnerText);
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // do nothing
+            }
+            finally
+            {
+            }
+        }
+
         private static void WelcomeMessage(DayzClient client)
         {
-            if (opt.WhiteListEnabled == true)
+            if (beOptions.WhiteListEnabled == true)
             {
                 b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Client Whitelist Verified", client.playerNo));
                 b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Welcome to our server!", client.playerNo));
@@ -155,7 +249,7 @@ namespace DayzWhitelisterPro
         }
         private static void KickPlayer(DayzClient client)
         {
-            if (opt.WhiteListEnabled == true)
+            if (beOptions.WhiteListEnabled == true)
             {
                 b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Client not whitelisted! Visit http://big-t for whitelisting", client.playerNo));
                 b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format("{0} ",client.playerNo.ToString()));
@@ -217,18 +311,18 @@ namespace DayzWhitelisterPro
 
     public class DB
     {
-        public string Host = "localhost";
-        public string Database = "whitelist";
-        public string User = "dayz";
-        public string Pass = "DAYZPASS";
-        public string Port = "3306";
+        public string Host  { get; set; }
+        public string Database  { get; set; }
+        public string User  { get; set; }
+        public string Pass  { get; set; }
+        public string Port  { get; set; }
     }
 
-    public class Options
+    public class BEOptions
     {
-        public string BEHost = "127.0.0.1";
-        public string BEPort = "2302";
-        public string BEPass = "BEPASS";
-        public bool WhiteListEnabled = false;
+        public string BEHost  { get; set; }
+        public string BEPort  { get; set; }
+        public string BEPass  { get; set; }
+        public bool WhiteListEnabled  { get; set; }
     }
 }
