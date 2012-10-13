@@ -105,7 +105,7 @@ $$
 --
 -- Definition for procedure proc_GetWhitelisted
 --
-CREATE DEFINER = 'root'@'localhost'
+CREATE DEFINER = 'dayz'@'localhost'
 PROCEDURE proc_GetWhitelisted()
 BEGIN
   SELECT *
@@ -117,7 +117,7 @@ $$
 --
 -- Definition for procedure proc_GetWhitelistLog
 --
-CREATE DEFINER = 'root'@'localhost'
+CREATE DEFINER = 'dayz'@'localhost'
 PROCEDURE proc_GetWhitelistLog()
 BEGIN
   SELECT log.id
@@ -155,7 +155,7 @@ $$
 --
 -- Definition for procedure proc_SetWhitelistedStatus
 --
-CREATE DEFINER = 'root'@'localhost'
+CREATE DEFINER = 'dayz'@'localhost'
 PROCEDURE proc_SetWhitelistedStatus(IN p_id          INT,
                                     IN p_whitelisted INT
                                     )
