@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +14,15 @@ namespace DayzWhitelisterPro
 {
     class Program
     {
-        public static BEOptions beOptions = new BEOptions();
-        static DB dbase = new DB();
+        // init our settings
+        public static DZWLSettings dzwlSettings = new DZWLSettings("config.xml");
 
-        static BattlEyeLoginCredentials logcred = new BattlEyeLoginCredentials { Host=beOptions.BEHost, Password=beOptions.BEPass, Port=Convert.ToInt32(beOptions.BEPort) };
+        static BattlEyeLoginCredentials logcred = new BattlEyeLoginCredentials { Host = dzwlSettings.beHost, Password = dzwlSettings.bePass, Port = Convert.ToInt32(dzwlSettings.bePort) };
         static IBattleNET b = new BattlEyeClient(logcred);
-        
-        static string configFileName = "config.xml";
+
 
         static void Main(string[] args)
         {
-            // load XML data
-            LoadXMLSettings();
 
             // init BattlEye
             b.MessageReceivedEvent += DumpMessage;
@@ -68,7 +65,7 @@ namespace DayzWhitelisterPro
 
             // echo message to console
             Console.WriteLine(args.Message);
-            
+
             try
             {
                 Match matchString;
@@ -119,8 +116,8 @@ namespace DayzWhitelisterPro
         private static bool VerifyWhiteList(DayzClient client)
         {
             bool returnVal = false;
-            
-            string connStr = string.Format("server={0};user={1};database={2};port={3};password={4};", dbase.Host, dbase.User, dbase.Database, dbase.Port, dbase.Pass);
+
+            string connStr = string.Format("server={0};user={1};database={2};port={3};password={4};", dzwlSettings.dbHost, dzwlSettings.dbUser, dzwlSettings.dbDatabase, dzwlSettings.dbPort, dzwlSettings.dbPass);
 
             MySqlConnection conn = new MySqlConnection(connStr);
             MySqlCommand cmd = new MySqlCommand();
@@ -134,7 +131,7 @@ namespace DayzWhitelisterPro
                 cmd.CommandText = "proc_CheckWhiteList";
 
                 cmd.Parameters.Add(new MySqlParameter("p_guid", client.GUID));
-                
+
                 rdr = cmd.ExecuteReader();
 
                 if (rdr.HasRows == true)
@@ -153,95 +150,11 @@ namespace DayzWhitelisterPro
             return returnVal;
         }
 
-        private static void LoadXMLSettings()
-        {
-            try
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(configFileName);
-                foreach (XmlNode node in xmlDoc)
-                {
-                    if (node.Name == "config")
-                    {
-                        foreach (XmlNode configNode in node)
-                        {
-                            if (configNode.Name == "section")
-                            {
-                                if (configNode.Attributes.Count == 1)
-                                {
-                                    switch (configNode.Attributes[0].Value)
-                                    {
-                                        case "DB":
-                                            foreach (XmlNode dbNode in configNode)
-                                            {
-                                                if (dbNode.Attributes.Count == 1)
-                                                {
-                                                    switch (dbNode.Attributes[0].Value)
-                                                    {
-                                                        case "Host":
-                                                            dbase.Host = dbNode.InnerText;
-                                                            break;
-                                                        case "Port":
-                                                            dbase.Port = dbNode.InnerText;
-                                                            break;
-                                                        case "User":
-                                                            dbase.User = dbNode.InnerText;
-                                                            break;
-                                                        case "Pass":
-                                                            dbase.Pass = dbNode.InnerText;
-                                                            break;
-                                                        case "DB":
-                                                            dbase.Database = dbNode.InnerText;
-                                                            break;
-                                                    }
 
-                                                }
-                                            }
-                                            break;
-
-                                        case "RCON":
-                                            foreach (XmlNode rconNode in configNode)
-                                            {
-                                                if (configNode.Attributes.Count == 1)
-                                                {
-                                                    switch (configNode.Attributes[0].Value)
-                                                    {
-                                                        case "Host":
-                                                            beOptions.BEHost = configNode.InnerText;
-                                                            break;
-                                                        case "Port":
-                                                            beOptions.BEPort = configNode.InnerText;
-                                                            break;
-                                                        case "Pass":
-                                                            beOptions.BEPass = configNode.InnerText;
-                                                            break;
-                                                        case "Enabled":
-                                                            beOptions.WhiteListEnabled = Convert.ToBoolean(configNode.InnerText);
-                                                            break;
-                                                    }
-
-                                                }
-                                            }
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // do nothing
-            }
-            finally
-            {
-            }
-        }
 
         private static void WelcomeMessage(DayzClient client)
         {
-            if (beOptions.WhiteListEnabled == true)
+            if (dzwlSettings.beWhiteListEnabled == true)
             {
                 b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Client Whitelist Verified", client.playerNo));
                 b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Welcome to our server!", client.playerNo));
@@ -249,10 +162,10 @@ namespace DayzWhitelisterPro
         }
         private static void KickPlayer(DayzClient client)
         {
-            if (beOptions.WhiteListEnabled == true)
+            if (dzwlSettings.beWhiteListEnabled == true)
             {
                 b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Client not whitelisted! Visit http://big-t for whitelisting", client.playerNo));
-                b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format("{0} ",client.playerNo.ToString()));
+                b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format("{0} ", client.playerNo.ToString()));
             }
         }
 
@@ -260,7 +173,7 @@ namespace DayzWhitelisterPro
         {
             // call insert to log function
             DB dbase = new DB();
-            string connStr = string.Format("server={0};user={1};database={2};port={3};password={4};", dbase.Host, dbase.User, dbase.Database, dbase.Port, dbase.Pass);
+            string connStr = string.Format("server={0};user={1};database={2};port={3};password={4};", dzwlSettings.dbHost, dzwlSettings.dbUser, dzwlSettings.dbDatabase, dzwlSettings.dbPort, dzwlSettings.dbPass);
 
             MySqlConnection conn = new MySqlConnection(connStr);
             MySqlCommand cmd = new MySqlCommand();
@@ -309,20 +222,125 @@ namespace DayzWhitelisterPro
         }
     }
 
+
+    public class DZWLSettings
+    {
+        public string dbHost { get; set; }
+        public string dbDatabase { get; set; }
+        public string dbUser { get; set; }
+        public string dbPass { get; set; }
+        public string dbPort { get; set; }
+
+        public string beHost { get; set; }
+        public string bePort { get; set; }
+        public string bePass { get; set; }
+        public bool beWhiteListEnabled { get; set; }
+
+        public string configFileName { get; set; }
+
+        // constructor -- Load our XML settings when we init our object
+        public DZWLSettings(string cfgFile)
+        {
+            configFileName = cfgFile;
+            this.LoadXMLSettings();
+        }
+
+        public void LoadXMLSettings()
+        {
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(this.configFileName);
+                foreach (XmlNode node in xmlDoc)
+                {
+                    if (node.Name == "config")
+                    {
+                        foreach (XmlNode configNode in node)
+                        {
+                            if (configNode.Name == "section")
+                            {
+                                if (configNode.Attributes.Count == 1)
+                                {
+                                    switch (configNode.Attributes[0].Value)
+                                    {
+                                        case "DB":
+                                            foreach (XmlNode dbNode in configNode)
+                                            {
+                                                if (dbNode.Attributes.Count == 1)
+                                                {
+                                                    switch (dbNode.Attributes[0].Value)
+                                                    {
+                                                        case "Host":
+                                                            this.dbHost = dbNode.InnerText;
+                                                            break;
+                                                        case "Port":
+                                                            this.dbPort = dbNode.InnerText;
+                                                            break;
+                                                        case "User":
+                                                            this.dbUser = dbNode.InnerText;
+                                                            break;
+                                                        case "Pass":
+                                                            this.dbPass = dbNode.InnerText;
+                                                            break;
+                                                        case "DB":
+                                                            this.dbDatabase = dbNode.InnerText;
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                            break;
+
+                                        case "RCON":
+                                            foreach (XmlNode rconNode in configNode)
+                                            {
+                                                if (rconNode.Attributes.Count == 1)
+                                                {
+                                                    switch (rconNode.Attributes[0].Value)
+                                                    {
+                                                        case "Host":
+                                                            this.beHost = rconNode.InnerText;
+                                                            break;
+                                                        case "Port":
+                                                            this.bePort = rconNode.InnerText;
+                                                            break;
+                                                        case "Pass":
+                                                            this.bePass = rconNode.InnerText;
+                                                            break;
+                                                        case "Enabled":
+                                                            this.beWhiteListEnabled = Convert.ToBoolean(rconNode.InnerText);
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // do nothing
+                Console.WriteLine("Error in Config File!");
+            }
+            finally
+            {
+            }
+        }
+
+    }
+
     public class DB
     {
-        public string Host  { get; set; }
-        public string Database  { get; set; }
-        public string User  { get; set; }
-        public string Pass  { get; set; }
-        public string Port  { get; set; }
+
     }
 
     public class BEOptions
     {
-        public string BEHost  { get; set; }
-        public string BEPort  { get; set; }
-        public string BEPass  { get; set; }
-        public bool WhiteListEnabled  { get; set; }
+
     }
 }
