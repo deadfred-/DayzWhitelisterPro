@@ -20,7 +20,6 @@ namespace DayzWhitelisterPro
         static BattlEyeLoginCredentials logcred = new BattlEyeLoginCredentials { Host = dzwlSettings.beHost, Password = dzwlSettings.bePass, Port = Convert.ToInt32(dzwlSettings.bePort) };
         static IBattleNET b = new BattlEyeClient(logcred);
 
-
         static void Main(string[] args)
         {
 
@@ -149,9 +148,7 @@ namespace DayzWhitelisterPro
             }
             return returnVal;
         }
-
-
-
+        
         private static void WelcomeMessage(DayzClient client)
         {
             if (dzwlSettings.beWhiteListEnabled == true)
@@ -172,7 +169,6 @@ namespace DayzWhitelisterPro
         private static void LogPlayer(DayzClient client)
         {
             // call insert to log function
-            DB dbase = new DB();
             string connStr = string.Format("server={0};user={1};database={2};port={3};password={4};", dzwlSettings.dbHost, dzwlSettings.dbUser, dzwlSettings.dbDatabase, dzwlSettings.dbPort, dzwlSettings.dbPass);
 
             MySqlConnection conn = new MySqlConnection(connStr);
@@ -202,7 +198,6 @@ namespace DayzWhitelisterPro
                 conn.Close();
             }
         }
-
     }
 
     public class DayzClient
@@ -221,7 +216,6 @@ namespace DayzWhitelisterPro
             Kick = 2
         }
     }
-
 
     public class DZWLSettings
     {
@@ -286,7 +280,6 @@ namespace DayzWhitelisterPro
                                                             this.dbDatabase = dbNode.InnerText;
                                                             break;
                                                     }
-
                                                 }
                                             }
                                             break;
@@ -331,16 +324,5 @@ namespace DayzWhitelisterPro
             {
             }
         }
-
-    }
-
-    public class DB
-    {
-
-    }
-
-    public class BEOptions
-    {
-
     }
 }
