@@ -6,19 +6,15 @@ Also if you like this program and want to buy me a beer, paypal donations are ac
 
 
 Pre-Requisites:
+* Microsoft Windows NT (2k,XP,7,Server)
+* Microsoft .Net Framework 4.0
+* MySQL server
 * MySQL .net Connector http://dev.mysql.com/downloads/connector/net/5.1.html
-* Visual Studio 2010 + (express edition ok)
+* Web Server (apache2 tested only)
+* PHP 5
+* (optional) Microsoft Visual Studio 2010 + (express edition ok)
 
 
 Installation Instructions:
 
-To install, run all of the scripts in the SQL directory with your dayz user starting with "setupdb.sql"
-then run the stored proc sql files to insert them into your db.
-
-configure the db.php in src/php/whitelistadmin/include
-
-configure the program.cs database info in C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\
-
-build the C# and run, your database should now be populated
-
-to install the admin control panel, you will need to copy your src/php/whitelistadmin folder to somewhere in your webroot.  Note this app offers no security other than parameterized queries, so you must protect this location yourself.  I suggest using .htdocs but if you want to whip up a little login script that will work too.  Just remember not to expose this to the public.
+read release/INSTALL.txt for instructions

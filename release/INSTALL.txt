@@ -1,0 +1,10 @@
+install instructions:
+
+1. Extract files localy.
+2. Open release\installSQL\WhitelistInstall.sql and execute against your database
+3. Copy release\htdocs\whitelistadmin directory to your web root
+3a. configure whitelistadmin\include\db.php with your database values
+4. Copy release\bin\DayZWhitelistPro directory to a location accessable by your server user
+4a. configure DayZWhitelistPro\config.xml to your db and be values
+5. Run DayzWhitelisterPro.exe after your DayZ server is up and running.
+
