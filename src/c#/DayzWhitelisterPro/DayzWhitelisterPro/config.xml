@@ -4,7 +4,7 @@
     <setting id="Host">localhost</setting>
     <setting id="Port">3306</setting>
     <setting id="User">dayz</setting>
-    <estting id="Pass">MySQLPassword</estting>
+    <estting id="Pass">MySQLPassword</setting>
     <setting id="DB">Whitelist</setting>
   </section>
   <section id="RCON">
