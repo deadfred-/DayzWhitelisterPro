@@ -17,3 +17,8 @@ C:\Users\john\Documents\GitHub\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\Dayz
 C:\Users\john\Documents\GitHub\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb
 C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
 C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb
+C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\bin\Debug\config.xml
+C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\bin\Debug\DayzWhitelisterPro.exe
+C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\bin\Debug\DayzWhitelisterPro.pdb
+C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\bin\Debug\BattleNET.pdb
+C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\ResolveAssemblyReference.cache

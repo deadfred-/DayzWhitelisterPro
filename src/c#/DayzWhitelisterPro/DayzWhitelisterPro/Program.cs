@@ -33,7 +33,6 @@ namespace DayzWhitelisterPro
             {
                 if (b.IsConnected() == false)
                 {
-                    b.Disconnect();
                     Console.WriteLine("No connection To server");
                     Console.WriteLine("Exiting");
                     b = null;
