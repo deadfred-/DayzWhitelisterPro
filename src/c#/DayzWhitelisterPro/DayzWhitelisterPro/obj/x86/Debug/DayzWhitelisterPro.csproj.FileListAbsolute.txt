@@ -15,3 +15,5 @@ C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\Da
 C:\Users\Administrator\Documents\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb
 C:\Users\john\Documents\GitHub\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
 C:\Users\john\Documents\GitHub\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb
+C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.exe
+C:\DayzWhitelisterPro\src\c#\DayzWhitelisterPro\DayzWhitelisterPro\obj\x86\Debug\DayzWhitelisterPro.pdb

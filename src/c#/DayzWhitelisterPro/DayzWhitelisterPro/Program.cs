@@ -33,6 +33,7 @@ namespace DayzWhitelisterPro
             {
                 if (b.IsConnected() == false)
                 {
+                    b.Disconnect();
                     Console.WriteLine("No connection To server");
                     Console.WriteLine("Exiting");
                     b = null;
@@ -105,6 +106,10 @@ namespace DayzWhitelisterPro
             {
                 // do nothing
             }
+            finally
+            {
+                client = null;
+            }
         }
 
         private static void Disconnected(BattlEyeDisconnectEventArgs args)
@@ -144,7 +149,12 @@ namespace DayzWhitelisterPro
             }
             finally
             {
+                rdr.Close();
                 conn.Close();
+                rdr = null;
+                conn = null;
+                cmd = null;
+                
             }
             return returnVal;
         }
@@ -153,16 +163,15 @@ namespace DayzWhitelisterPro
         {
             if (dzwlSettings.beWhiteListEnabled == true)
             {
-                b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Client Whitelist Verified", client.playerNo));
-                b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Welcome to our server!", client.playerNo));
+                Console.WriteLine(string.Format("Verified Player {0}: {1}", client.playerNo.ToString(), client.GUID.ToString()));
             }
         }
         private static void KickPlayer(DayzClient client)
         {
             if (dzwlSettings.beWhiteListEnabled == true)
             {
-                b.SendCommandPacket(EBattlEyeCommand.Say, string.Format(@"{0} Client not whitelisted! Visit http://big-t for whitelisting", client.playerNo));
-                b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format("{0} ", client.playerNo.ToString()));
+                b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format(@"{0} Client not whitelisted! Visit http://yoursite for whitelisting", client.playerNo.ToString()));
+                Console.WriteLine(string.Format("Kicked Player {0}", client.playerNo.ToString()));
             }
         }
 
@@ -196,6 +205,8 @@ namespace DayzWhitelisterPro
             finally
             {
                 conn.Close();
+                conn = null;
+                cmd = null;
             }
         }
     }
@@ -241,9 +252,9 @@ namespace DayzWhitelisterPro
 
         public void LoadXMLSettings()
         {
+            XmlDocument xmlDoc = new XmlDocument();
             try
             {
-                XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(this.configFileName);
                 foreach (XmlNode node in xmlDoc)
                 {
@@ -322,6 +333,7 @@ namespace DayzWhitelisterPro
             }
             finally
             {
+                xmlDoc = null;
             }
         }
     }

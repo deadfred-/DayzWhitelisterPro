@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <section id="DB">
+    <setting id="Host">localhost</setting>
+    <setting id="Port">3306</setting>
+    <setting id="User">dayz</setting>
+    <estting id="Pass">MySQLPassword</estting>
+    <setting id="DB">Whitelist</setting>
+  </section>
+  <section id="RCON">
+    <setting id="Host">127.0.0.1</setting>
+    <setting id="Port">2302</setting>
+    <setting id="Pass">BePass</setting>
+    <setting id="Enabled">False</setting>
+  </section>
+</config>
