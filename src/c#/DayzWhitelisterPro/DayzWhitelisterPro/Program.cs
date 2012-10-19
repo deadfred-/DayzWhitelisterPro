@@ -344,7 +344,8 @@ namespace DayzWhitelisterPro
             }
             catch (Exception ex)
             {
-                // do nothing
+                // output error
+                Console.WriteLine(ex);
                 Console.WriteLine("Error in Config File!");
             }
             finally
