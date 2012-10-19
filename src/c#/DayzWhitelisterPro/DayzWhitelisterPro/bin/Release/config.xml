@@ -11,6 +11,9 @@
     <setting id="Host">127.0.0.1</setting>
     <setting id="Port">2302</setting>
     <setting id="Pass">BePass</setting>
+  </section>
+  <section id="General">
     <setting id="Enabled">False</setting>
+    <setting id="URL">http://yoursite.com/whitelist</setting>
   </section>
 </config>

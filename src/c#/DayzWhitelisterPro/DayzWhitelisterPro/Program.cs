@@ -170,7 +170,7 @@ namespace DayzWhitelisterPro
         {
             if (dzwlSettings.beWhiteListEnabled == true)
             {
-                b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format(@"{0} Client not whitelisted! Visit http://yoursite for whitelisting", client.playerNo.ToString()));
+                b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format(@"{0} Client not whitelisted! Visit {1} for whitelisting", client.playerNo.ToString(), dzwlSettings.URL));
                 Console.WriteLine(string.Format("Kicked Player {0}", client.playerNo.ToString()));
             }
         }
@@ -240,6 +240,7 @@ namespace DayzWhitelisterPro
         public string bePort { get; set; }
         public string bePass { get; set; }
         public bool beWhiteListEnabled { get; set; }
+        public string URL { get; set; }
 
         public string configFileName { get; set; }
 
@@ -311,8 +312,24 @@ namespace DayzWhitelisterPro
                                                         case "Pass":
                                                             this.bePass = rconNode.InnerText;
                                                             break;
+                                                    }
+
+                                                }
+                                            }
+                                            break;
+
+                                        case "General":
+                                            foreach (XmlNode rconNode in configNode)
+                                            {
+                                                if (rconNode.Attributes.Count == 1)
+                                                {
+                                                    switch (rconNode.Attributes[0].Value)
+                                                    {
                                                         case "Enabled":
                                                             this.beWhiteListEnabled = Convert.ToBoolean(rconNode.InnerText);
+                                                            break;
+                                                        case "URL":
+                                                            this.URL = rconNode.InnerText;
                                                             break;
                                                     }
 
