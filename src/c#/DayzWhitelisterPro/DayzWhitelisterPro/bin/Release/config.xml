@@ -15,5 +15,6 @@
   <section id="General">
     <setting id="Enabled">False</setting>
     <setting id="URL">http://yoursite.com/whitelist</setting>
+    <setting id="WelcomeMessage">True</setting>
   </section>
 </config>

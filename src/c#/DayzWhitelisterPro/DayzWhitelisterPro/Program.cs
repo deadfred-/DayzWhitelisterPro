@@ -22,6 +22,7 @@ namespace DayzWhitelisterPro
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Initializing DayZ Whitelister Pro");
 
             // init BattlEye
             b.MessageReceivedEvent += DumpMessage;
@@ -38,6 +39,9 @@ namespace DayzWhitelisterPro
                     b = null;
                     return;
                 }
+
+                Console.WriteLine("Connected...");
+                Console.WriteLine("Waiting for clients");
 
                 // main body of work
                 do
@@ -59,11 +63,8 @@ namespace DayzWhitelisterPro
 
         private static void DumpMessage(BattlEyeMessageEventArgs args)
         {
-            // new clien tobj
-            DayzClient client = new DayzClient();
-
             // echo message to console
-            Console.WriteLine(args.Message);
+            //Console.WriteLine(args.Message);
 
             try
             {
@@ -73,6 +74,9 @@ namespace DayzWhitelisterPro
                 matchString = Regex.Match(args.Message, @"Verified GUID\s\W(?<guid>.+)\W\sof player #(?<player_id>[0-9]{1,3})\s(?<user>.+)", RegexOptions.IgnoreCase);
                 if (matchString.Success)
                 {
+                    // new clien tobj
+                    DayzClient client = new DayzClient();
+
                     client.GUID = matchString.Groups["guid"].Value;
                     client.playerNo = Convert.ToInt32(matchString.Groups["player_id"].Value);
                     client.UserName = matchString.Groups["user"].Value;
@@ -99,15 +103,14 @@ namespace DayzWhitelisterPro
                             LogPlayer(client);
                         }
                     }
+                    
+                    // destroy client obj
+                    client = null;
                 }
             }
             catch (Exception ex)
             {
                 // do nothing
-            }
-            finally
-            {
-                client = null;
             }
         }
 
@@ -160,18 +163,21 @@ namespace DayzWhitelisterPro
         
         private static void WelcomeMessage(DayzClient client)
         {
-            if (dzwlSettings.beWhiteListEnabled == true)
+            if (dzwlSettings.WelcomeMessageEnabled == true)
             {
-                Console.WriteLine(string.Format("Verified Player {0}: {1}", client.playerNo.ToString(), client.GUID.ToString()));
+                b.SendCommandPacket(EBattlEyeCommand.Say, string.Format("-1 Welcome: {0}", client.UserName));
             }
+
+                Console.WriteLine(string.Format("Verified Player {0}: {1} - {2}", client.playerNo.ToString(), client.GUID.ToString(), client.UserName.ToString()));
         }
         private static void KickPlayer(DayzClient client)
         {
             if (dzwlSettings.beWhiteListEnabled == true)
             {
                 b.SendCommandPacket(EBattlEyeCommand.Kick, string.Format(@"{0} Client not whitelisted! Visit {1} for whitelisting", client.playerNo.ToString(), dzwlSettings.URL));
-                Console.WriteLine(string.Format("Kicked Player {0}", client.playerNo.ToString()));
+                
             }
+            Console.WriteLine(string.Format("Kicked Player {0} : {1} - {2}", client.playerNo.ToString(), client.GUID.ToString(), client.UserName.ToString()));
         }
 
         private static void LogPlayer(DayzClient client)
@@ -240,6 +246,7 @@ namespace DayzWhitelisterPro
         public string bePass { get; set; }
         public bool beWhiteListEnabled { get; set; }
         public string URL { get; set; }
+        public bool WelcomeMessageEnabled { get; set; }
 
         public string configFileName { get; set; }
 
@@ -329,6 +336,9 @@ namespace DayzWhitelisterPro
                                                             break;
                                                         case "URL":
                                                             this.URL = rconNode.InnerText;
+                                                            break;
+                                                        case "WelcomeMessage":
+                                                            this.WelcomeMessageEnabled = Convert.ToBoolean(rconNode.InnerText);
                                                             break;
                                                     }
 
