@@ -9,6 +9,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Threading;
 
 namespace DayzWhitelisterPro
 {
@@ -47,6 +48,9 @@ namespace DayzWhitelisterPro
                 do
                 {
                     // capture logs
+                    // Wait 1 second to conserve CPU cycles.  Thanks ryan!
+                    Thread.Sleep(1000);
+                    
 
                 } while (b.IsConnected() == true);
 
@@ -70,7 +74,7 @@ namespace DayzWhitelisterPro
             {
                 Match matchString;
 
-                // Grab the user data if it matches our regular expresion - Thanks to mmmmmkay for this Regex!
+                // Grab the user data if it matches our regular expresion - Thanks to mmmmk for this Regex!
                 matchString = Regex.Match(args.Message, @"Verified GUID\s\W(?<guid>.+)\W\sof player #(?<player_id>[0-9]{1,3})\s(?<user>.+)", RegexOptions.IgnoreCase);
                 if (matchString.Success)
                 {
