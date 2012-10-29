@@ -75,7 +75,7 @@ namespace DayzWhitelisterPro
                 Match matchString;
 
                 // Grab the user data if it matches our regular expresion - Thanks to mmmmk for this Regex!
-                matchString = Regex.Match(args.Message, @"Verified GUID\s\W(?<guid>.+)\W\sof player #(?<player_id>[0-9]{1,3})\s(?<user>.+)", RegexOptions.IgnoreCase);
+                matchString = Regex.Match(args.Message, @"Player #(?<player_id>[0-9]{1,3})\s(?<user>.+) - GUID: (?<guid>.+)\W\D\S", RegexOptions.IgnoreCase);
                 if (matchString.Success)
                 {
                     // new clien tobj
