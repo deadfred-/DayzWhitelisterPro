@@ -78,10 +78,10 @@ namespace DayzWhitelisterPro
                 matchString = Regex.Match(args.Message, @"Player #(?<player_id>[0-9]{1,3})\s(?<user>.+) - GUID: (?<guid>.+)\W\D\S", RegexOptions.IgnoreCase);
                 if (matchString.Success)
                 {
-                    // new clien tobj
+                    // new client obj
                     DayzClient client = new DayzClient();
 
-                    client.GUID = matchString.Groups["guid"].Value;
+                    client.GUID = matchString.Groups["guid"].Value.Trim(); // thanks DeanHyde
                     client.playerNo = Convert.ToInt32(matchString.Groups["player_id"].Value);
                     client.UserName = matchString.Groups["user"].Value;
 
@@ -102,7 +102,7 @@ namespace DayzWhitelisterPro
                             // display welcome message
                             WelcomeMessage(client);
 
-                            // log event;
+                            // log event
                             client.logType = DayzClient.LogTypes.Success;
                             LogPlayer(client);
                         }
